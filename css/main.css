@@ -1,0 +1,83 @@
+#chart {
+    margin: 5px 0;
+    height: 500px;
+}
+
+.node rect {
+    cursor: move;
+    fill-opacity: .9;
+    shape-rendering: crispEdges;
+}
+
+.node text {
+    pointer-events: none;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.link {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .2;
+}
+
+.link:hover {
+    stroke-opacity: .5;
+}
+
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+}
+
+.select .btn {
+    min-width: 220px;
+    width: 100%;
+}
+
+.dropdown-menu {
+    visibility: visible;
+    display: none;
+}
+
+#slider {
+    margin: 10px 0;
+}
+
+#sliderValue {
+    position: absolute;
+    left: 50%;
+    margin-top: -9px;
+    z-index: 10;
+}
+
+.checkbox {
+    margin: 6px 0;
+}
+
+#disabled-while-loading.disabled{
+    position: relative;
+}
+
+#disabled-while-loading.disabled:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.75);
+    z-index: 100;
+}
+
+#disabled-while-loading.disabled:after {
+    display: block;
+    content: 'Loading survey data…';
+    position: absolute;
+    top: 270px;
+    z-index: 101;
+    font-size: 40px;
+    text-align: center;
+    width: 100%;
+ }

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Daily JS survey results visualised with Sankey diagrams</title>
+
+    <!-- Loading Bootstrap -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/non-responsive.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1>Daily JS survey results</h1>
+
+    <p class="lead">visualised with Sankey diagrams</p>
+
+    <div id="disabled-while-loading" class="disabled">
+        <div class="row">
+            <select id="questions-1" class="col-xs-6">
+                <option disabled selected value="-1">Select…</option>
+            </select>
+            <select id="questions-2" class="col-xs-6">
+                <option disabled selected value="-1">Select…</option>
+            </select>
+        </div>
+        <div id="chart"></div>
+
+        <h3>Settings</h3>
+
+        <div class="row">
+            <div class="col-xs-6"><p>Don't show the answers with less than X votes:</p></div>
+            <div class="col-xs-6">
+                <div id="slider" class="ui-slider">
+                    <div id="sliderValue"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6"><p>Split multiple answers <small>(e.g. "Qunit;Mocha" -> "Qunit", "Mocha")</small>:</p></div>
+            <div class="col-xs-6">
+                <label class="checkbox" for="splitMultipleAnswers">
+                    <input type="checkbox" checked id="splitMultipleAnswers" data-toggle="checkbox">
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6"><p>Use survey results from year:</p></div>
+            <div class="col-xs-6">
+                <label class="radio">
+                    <input type="radio" name="surveyYear" value="2013" data-toggle="radio"> 2013
+                </label>
+                <label class="radio">
+                    <input type="radio" name="surveyYear" value="2012" data-toggle="radio"> 2012
+                </label>
+            </div>
+        </div>
+
+
+        <h3>Examples</h3>
+        <ul>
+            <li><a href="#2013/3/7/10/true">Do people with more experience write more tests?</a></li>
+            <li><a href="#2013/21/5/25/true">Do people with C#/.NET background prefer TypeScript over CoffeeScript?</a>
+            </li>
+            <li><a href="#2013/3/14/15/false">Is Angular more attractive than Backbone for new JavaScript
+                developers?</a></li>
+            <li><a href="#2013/2/2/5/true">How many people that use JavaScript at work uses it also for the side
+                projects?</a></li>
+            <li><a href="#2013/21/7/40/true">Do people that use Ruby tend to write more JavaScript tests?</a></li>
+        </ul>
+    </div>
+
+    <h3>About</h3>
+
+    <p>This small project was made with <a href="http://d3js.org/">D3.js</a>, <a
+            href="http://bost.ocks.org/mike/sankey/">Sankey plugin</a>, <a href="http://getbootstrap.com/">Bootstrap</a>
+        and <a href="http://designmodo.github.io/Flat-UI/">Flat-UI</a>.</p>
+
+    <p>Data comes from JavaScript Developer Survey by <a href="http://dailyjs.com/">DailyJS</a> (<a
+            href="http://dailyjs.com/2012/12/24/javascript-survey-results/">2012</a>, <a
+            href="http://dailyjs.com/2013/12/12/javascript-survey-results/">2013</a>). Single choice questions are
+        marked with <code>[.]</code> and multiple choice questions with <code>[*]</code>.</p>
+
+    <p>If you found a bug or have a feature request, please create an issue on <a href="http://github.com/kdzwinel/">GitHub</a>
+        or contact me directly (kdzwinel at gmail, @kdzwinel).</p>
+
+    <!-- Github button -->
+    <iframe src="http://ghbtns.com/github-btn.html?user=mdo&repo=github-buttons&type=watch&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+
+    <!-- Twitter button -->
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://google.com" data-via="kdzwinel">Tweet</a>
+
+    <!-- G+ button -->
+    <div class="g-plusone" data-size="medium" data-href="http://google.com"></div>
+
+    <!-- FB button -->
+    <div class="fb-like" data-href="http://google.com" data-layout="button_count" data-action="like"
+         data-show-faces="false" data-share="true"></div>
+    <div id="fb-root"></div>
+
+    <!-- Github ribbon -->
+    <a href="https://github.com/kdzwinel/"><img style="position: absolute; top: 0; right: 0; border: 0;"
+                                                src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+                                                alt="Fork me on GitHub"></a>
+</div>
+
+<script src="js/libs/jquery-1.8.3.min.js"></script>
+<script src="js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+<script src="js/libs/bootstrap-select.js"></script>
+<script src="js/libs/flatui-radio.js"></script>
+<script src="js/libs/flatui-checkbox.js"></script>
+
+<script src="js/libs/d3.min.js"></script>
+<script src="js/libs/sankey.js"></script>
+<script src="js/SurveyDataProvider.js"></script>
+<script src="js/SankeyDiagram.js"></script>
+<script src="js/State.js"></script>
+<script src="js/main.js"></script>
+
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/platform.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+</script>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>
