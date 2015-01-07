@@ -1,9 +1,9 @@
 (function () {
     window.appState = new State();
     var defaultState = {
-        year: 2013,
-        question1: 3,
-        question2: 7,
+        year: 2014,
+        question1: 1,
+        question2: 2,
         minLinkValue: 10,
         splitMultipleAnswers: true
     };
@@ -18,6 +18,12 @@
             location: './data/JavaScript%20Developer%20Survey%202013.csv',
             settings: {
                 answerDelimiter: ';'
+            }
+        },
+        2014: {
+            location: './data/JavaScript%20Developer%20Survey%202014.csv',
+            settings: {
+                answerDelimiter: ', '
             }
         }
     };
@@ -175,7 +181,7 @@
 
     $splitMultipleAnswers.on('change', onSplitMultipleAnswersChange);
 
-    window.addEventListener('popstate', function () {
+    var parseURL = function () {
         var hash = location.hash;
         var q1, q2, year, minLinkValue, splitMultipleAnswers;
 
@@ -208,9 +214,13 @@
         } else {
             appState.change(defaultState);
         }
-    }, false);
+    };
+
+    window.addEventListener('popstate', parseURL, false);
 
     if (location.hash === "") {
         appState.change(defaultState);
+    } else {
+        parseURL();
     }
 })();
